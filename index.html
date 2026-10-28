@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zhaoyang Jia</title>
+<meta name="description" content="Zhaoyang Jia — PhD student in computer science at UC San Diego. Structural variation detection in long-read sequencing, automated karyotyping, and genomics pipelines at biobank scale.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root {
+  --bg: #ffffff;
+  --ink: #1a1d21;
+  --muted: #5d6670;
+  --rule: #e3e6e8;
+  --accent: #176b7a;
+  --accent-ink: #0f4e59;
+  --read-f: #e6b0a8;      /* forward-strand reads  */
+  --read-r: #a9bdd6;      /* reverse-strand reads  */
+  --jx: #1a1d21;          /* junction line         */
+  --serif: "Source Serif 4", Charter, Georgia, serif;
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --measure: 44rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121416;
+    --ink: #e7e9ea;
+    --muted: #9aa3ac;
+    --rule: #2a2f34;
+    --accent: #6cc1d0;
+    --accent-ink: #9ad8e3;
+    --read-f: #7d5651;
+    --read-r: #4b647f;
+    --jx: #e7e9ea;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121416;
+  --ink: #e7e9ea;
+  --muted: #9aa3ac;
+  --rule: #2a2f34;
+  --accent: #6cc1d0;
+  --accent-ink: #9ad8e3;
+  --read-f: #7d5651;
+  --read-r: #4b647f;
+  --jx: #e7e9ea;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1.0625rem;          /* 17px */
+  line-height: 1.6;
+  font-optical-sizing: auto;
+}
+a { color: var(--accent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
+a:hover { color: var(--accent-ink); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+.wrap { max-width: var(--measure); margin: 0 auto; padding: 0 1rem; }
+p { margin: 0 0 1rem; }
+h1, h2, h3 { font-weight: 600; line-height: 1.2; margin: 0; }
+h2 { font-size: 1.5rem; margin-bottom: 1rem; }
+h3 { font-size: 1.0625rem; }
+.meta { font-family: var(--sans); font-size: 0.875rem; color: var(--muted); }
+section { margin-top: 3.5rem; }
+section:first-of-type { margin-top: 0; }
+
+/* ============================================================
+   TOP BAR + HERO
+   ============================================================ */
+.top {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 1.25rem 0 0; font-family: var(--sans); font-size: 0.875rem;
+}
+.top nav { display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; justify-content: flex-end; }
+.top nav a { color: var(--muted); text-decoration: none; }
+@media (max-width: 600px) { .top .site-name { display: none; } .top nav { justify-content: flex-start; } }
+.top nav a:hover { color: var(--ink); }
+.hero { padding: 3.5rem 0 0; position: relative; }
+.portrait { float: right; width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0.4rem 0 1rem 1.5rem; }
+@media (max-width: 600px) { .portrait { width: 88px; height: 88px; } }
+.hero h1 { font-size: clamp(2.4rem, 6vw, 3.6rem); letter-spacing: -0.01em; }
+.hero .role { font-size: 1.25rem; margin: 0.6rem 0 1rem; }
+.hero .lede { max-width: 36em; }
+.contact { font-family: var(--sans); font-size: 0.9375rem; margin-top: 1.25rem; }
+.contact a { margin-right: 1.4rem; white-space: nowrap; }
+
+/* ---- read pile-up figure ---- */
+.figure { margin: 2.5rem 0 0; }
+.pileup { display: block; width: 100%; height: 120px; }
+@media (max-width: 600px) { .pileup { height: 96px; } }
+.pileup .rd.f { fill: var(--read-f); }
+.pileup .rd.r { fill: var(--read-r); }
+.pileup .jx { stroke: var(--jx); stroke-width: 1.5; stroke-dasharray: 4 5; opacity: 0.7; }
+.figure figcaption { font-family: var(--sans); font-size: 0.8125rem; color: var(--muted); margin-top: 0.5rem; }
+@media (prefers-reduced-motion: no-preference) {
+  .pileup .rd { transform-origin: left center; transform: scaleX(0); animation: draw 0.9s cubic-bezier(.2,.7,.2,1) forwards; }
+  .pileup .rd:nth-of-type(3n+1) { animation-delay: 0.05s; }
+  .pileup .rd:nth-of-type(3n+2) { animation-delay: 0.18s; }
+  .pileup .rd:nth-of-type(3n)   { animation-delay: 0.32s; }
+  @keyframes draw { to { transform: scaleX(1); } }
+}
+
+/* ============================================================
+   RESEARCH
+   ============================================================ */
+.theme { margin-bottom: 1.75rem; }
+.theme h3 { margin-bottom: 0.25rem; }
+.theme p { margin-bottom: 0.5rem; }
+
+/* ============================================================
+   PUBLICATIONS
+   ============================================================ */
+.pubs { list-style: none; margin: 0; padding: 0; }
+.pubs li { padding: 1rem 0; border-top: 1px solid var(--rule); }
+.pubs li:last-child { border-bottom: 1px solid var(--rule); }
+.pubs .title { display: block; }
+.pubs .authors { display: block; color: var(--muted); }
+.pubs .authors b { color: var(--ink); font-weight: 600; }
+.pubs .venue { font-style: italic; }
+.pubs .meta { display: block; margin-top: 0.35rem; }
+.pubs .role { font-family: var(--sans); font-size: 0.8125rem; color: var(--accent-ink); }
+.pubs .talk { display: block; margin-top: 0.3rem; }
+
+/* ============================================================
+   PROJECTS
+   ============================================================ */
+.proj { margin-bottom: 1.5rem; }
+.proj h3 { margin-bottom: 0.2rem; }
+.proj h3 a { color: inherit; text-decoration: none; }
+.proj h3 a:hover { color: var(--accent); }
+.proj .meta { display: block; margin-bottom: 0.35rem; }
+
+/* ============================================================
+   EXPERIENCE TIMELINE (a real sequence, so a rule is earned)
+   ============================================================ */
+.timeline { list-style: none; margin: 0; padding: 0; }
+.timeline li {
+  display: grid; grid-template-columns: 9.5rem 1fr; gap: 1.25rem;
+  padding: 0.75rem 0;
+}
+.timeline .when { font-family: var(--sans); font-size: 0.875rem; color: var(--muted); padding-top: 0.2em; }
+.timeline .what h3 { display: inline; }
+.timeline .what .where { color: var(--muted); }
+.timeline .what p { margin: 0.25rem 0 0; }
+@media (max-width: 600px) {
+  .timeline li { grid-template-columns: 1fr; gap: 0.15rem; }
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer { margin: 4rem 0 2.5rem; padding-top: 1.25rem; border-top: 1px solid var(--rule); }
+footer .meta { line-height: 1.8; }
+.theme-toggle {
+  font-family: var(--sans); font-size: 0.8125rem; color: var(--muted);
+  background: none; border: 1px solid var(--rule); border-radius: 999px;
+  padding: 0.15rem 0.7rem; cursor: pointer;
+}
+.theme-toggle:hover { color: var(--ink); border-color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============================================================
+       TOP BAR
+       ============================================================ -->
+  <header class="top">
+    <span class="meta site-name">Zhaoyang Jia</span>
+    <nav aria-label="Sections">
+      <a href="#research">Research</a>
+      <a href="#publications">Publications</a>
+      <a href="#projects">Projects</a>
+      <a href="resume.pdf">CV</a>
+    </nav>
+  </header>
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section class="hero" aria-labelledby="name">
+    <!-- Optional portrait: drop photo.jpg in the repo root and uncomment.
+         Keep it small (~400px wide); it sits right of the name on wide screens.
+    <img class="portrait" src="photo.jpg" alt="Zhaoyang Jia" width="120" height="120">
+    -->
+    <h1 id="name">Zhaoyang Jia</h1>
+    <p class="role">PhD student in computer science at UC San Diego</p>
+    <p class="lede">
+      I build methods that find structural rearrangements in long-read sequencing data,
+      and the pipelines that run them across biobank-scale genomes. I work in
+      <a href="https://bafnalab.ucsd.edu/">Vineet Bafna's lab</a>, where my current focus is
+      detecting Robertsonian translocations from Oxford Nanopore reads.
+    </p>
+    <p class="contact">
+      <a href="mailto:z4jia@ucsd.edu">z4jia@ucsd.edu</a>
+      <a href="https://github.com/Zhaoyang-Jia">GitHub</a>
+      <a href="https://www.linkedin.com/in/zhaoyangjia/">LinkedIn</a>
+      <a href="https://scholar.google.com/">Google Scholar</a>
+      <a href="resume.pdf">CV (PDF)</a>
+    </p>
+
+    <figure class="figure">
+<svg class="pileup" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+<rect class="rd r" x="-91" y="6" width="118" height="7" rx="3.5"/>
+<rect class="rd f" x="43" y="6" width="163" height="7" rx="3.5"/>
+<rect class="rd f" x="219" y="6" width="162" height="7" rx="3.5"/>
+<rect class="rd r" x="411" y="6" width="109" height="7" rx="3.5"/>
+<rect class="rd r" x="572" y="6" width="155" height="7" rx="3.5"/>
+<rect class="rd f" x="766" y="6" width="112" height="7" rx="3.5"/>
+<rect class="rd r" x="917" y="6" width="159" height="7" rx="3.5"/>
+<rect class="rd f" x="-42" y="20" width="115" height="7" rx="3.5"/>
+<rect class="rd f" x="106" y="20" width="132" height="7" rx="3.5"/>
+<rect class="rd f" x="250" y="20" width="155" height="7" rx="3.5"/>
+<rect class="rd r" x="422" y="20" width="138" height="7" rx="3.5"/>
+<rect class="rd f" x="598" y="20" width="179" height="7" rx="3.5"/>
+<rect class="rd r" x="806" y="20" width="74" height="7" rx="3.5"/>
+<rect class="rd f" x="897" y="20" width="203" height="7" rx="3.5"/>
+<rect class="rd r" x="-59" y="34" width="75" height="7" rx="3.5"/>
+<rect class="rd f" x="51" y="34" width="88" height="7" rx="3.5"/>
+<rect class="rd r" x="172" y="34" width="220" height="7" rx="3.5"/>
+<rect class="rd f" x="400" y="34" width="117" height="7" rx="3.5"/>
+<rect class="rd f" x="574" y="34" width="130" height="7" rx="3.5"/>
+<rect class="rd f" x="718" y="34" width="84" height="7" rx="3.5"/>
+<rect class="rd f" x="826" y="34" width="178" height="7" rx="3.5"/>
+<rect class="rd r" x="-45" y="48" width="62" height="7" rx="3.5"/>
+<rect class="rd r" x="44" y="48" width="80" height="7" rx="3.5"/>
+<rect class="rd f" x="149" y="48" width="205" height="7" rx="3.5"/>
+<rect class="rd r" x="365" y="48" width="74" height="7" rx="3.5"/>
+<rect class="rd f" x="578" y="48" width="186" height="7" rx="3.5"/>
+<rect class="rd r" x="774" y="48" width="173" height="7" rx="3.5"/>
+<rect class="rd r" x="973" y="48" width="127" height="7" rx="3.5"/>
+<rect class="rd f" x="-28" y="62" width="137" height="7" rx="3.5"/>
+<rect class="rd r" x="141" y="62" width="169" height="7" rx="3.5"/>
+<rect class="rd r" x="345" y="62" width="175" height="7" rx="3.5"/>
+<rect class="rd f" x="533" y="62" width="141" height="7" rx="3.5"/>
+<rect class="rd r" x="703" y="62" width="69" height="7" rx="3.5"/>
+<rect class="rd f" x="810" y="62" width="154" height="7" rx="3.5"/>
+<rect class="rd r" x="994" y="62" width="106" height="7" rx="3.5"/>
+<rect class="rd f" x="-53" y="76" width="192" height="7" rx="3.5"/>
+<rect class="rd r" x="166" y="76" width="147" height="7" rx="3.5"/>
+<rect class="rd f" x="346" y="76" width="165" height="7" rx="3.5"/>
+<rect class="rd r" x="587" y="76" width="142" height="7" rx="3.5"/>
+<rect class="rd r" x="746" y="76" width="136" height="7" rx="3.5"/>
+<rect class="rd r" x="919" y="76" width="114" height="7" rx="3.5"/>
+<rect class="rd f" x="-13" y="90" width="96" height="7" rx="3.5"/>
+<rect class="rd f" x="120" y="90" width="219" height="7" rx="3.5"/>
+<rect class="rd f" x="571" y="90" width="131" height="7" rx="3.5"/>
+<rect class="rd f" x="732" y="90" width="93" height="7" rx="3.5"/>
+<rect class="rd r" x="854" y="90" width="183" height="7" rx="3.5"/>
+<rect class="rd r" x="-95" y="104" width="211" height="7" rx="3.5"/>
+<rect class="rd f" x="129" y="104" width="210" height="7" rx="3.5"/>
+<rect class="rd f" x="366" y="104" width="175" height="7" rx="3.5"/>
+<rect class="rd f" x="557" y="104" width="214" height="7" rx="3.5"/>
+<rect class="rd r" x="780" y="104" width="97" height="7" rx="3.5"/>
+<rect class="rd r" x="914" y="104" width="117" height="7" rx="3.5"/>
+<line class="jx" x1="560" y1="0" x2="560" y2="120"/>
+</svg>
+      <figcaption>Long reads piled up across a satellite junction. Fewer reads span the break: a copy-number loss, the signal my current method looks for.</figcaption>
+    </figure>
+  </section>
+
+  <!-- ============================================================
+       RESEARCH
+       ============================================================ -->
+  <section id="research" aria-labelledby="research-h">
+    <h2 id="research-h">Research</h2>
+
+    <div class="theme">
+      <h3>Robertsonian translocations from long reads</h3>
+      <p>
+        Robertsonian translocations fuse two acrocentric chromosomes and are among the most common
+        constitutional rearrangements in humans, yet they sit in satellite repeats that short-read
+        methods cannot resolve. I estimate copy-number loss at the acrocentric satellite junctions
+        directly from Oxford Nanopore whole-genome sequencing. To make this practical on
+        unaligned biobank data, I trained a CNN+BiLSTM pre-filter that screens raw reads for
+        junction sequences before alignment, so the first pass over 60+ TB of data runs about
+        25 times faster than an alignment-first pipeline.
+      </p>
+      <p class="meta">First-author manuscript in preparation; preprint expected November 2026.</p>
+    </div>
+
+    <div class="theme">
+      <h3>Automated karyotyping</h3>
+      <p>
+        <a href="https://doi.org/10.1101/gr.280536.125">OMKar</a> reconstructs a karyotype from
+        Bionano optical mapping or ONT data, automating what is otherwise a manual cytogenetics
+        workflow with graph algorithms and integer linear programming that reconcile parallel variant calls into a
+        consistent set of chromosomes. I share first authorship on the method and built the simulation-driven
+        test harness around it: parameterized random karyotypes at up to three whole genomes per
+        minute, with automated regression comparison across pipeline versions.
+      </p>
+      <p class="meta">Joint first author, <span class="venue">Genome Research</span>, 2025.</p>
+    </div>
+
+    <div class="theme">
+      <h3>Pipelines at scale</h3>
+      <p>
+        Much of my day-to-day is engineering: modular pipelines that survive contact with
+        tens of terabytes, Python multiprocessing, and memory and runtime profiling. Earlier,
+        I built reproducible RNA-seq and iCLIP pipelines for a wet-lab group and ran a DNA-repair
+        study end to end, from CRISPR knockouts to the sequencing analysis.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PUBLICATIONS
+       ============================================================ -->
+  <section id="publications" aria-labelledby="pubs-h">
+    <h2 id="pubs-h">Publications and presentations</h2>
+    <ul class="pubs">
+      <li>
+        <span class="title">Accurate detection of Robertsonian translocations using ONT long-reads by estimating CN-loss at acrocentric satellite junctions</span>
+        <span class="authors"><b>Z. Jia</b>, T. Löwenstern, …, V. Bafna</span>
+        <span class="meta"><span class="role">First author</span> &nbsp; Manuscript in preparation; preprint expected Nov. 2026</span>
+        <span class="talk meta">Lightning talk and poster, ASHG Annual Meeting, Montreal, Oct. 2026</span>
+      </li>
+      <li>
+        <span class="title">OMKar: optical map based automated karyotyping of genomes to identify constitutional abnormalities</span>
+        <span class="authors">S. R. Dehkordi*, <b>Z. Jia</b>*, J. Estabrook, …, V. Bafna</span>
+        <span class="meta"><span class="role">Joint first author</span> &nbsp; <span class="venue">Genome Research</span>, 2025 &nbsp; <a href="https://doi.org/10.1101/gr.280536.125">doi:10.1101/gr.280536.125</a></span>
+        <span class="talk meta">Poster, American Cytogenomics Conference, Norfolk, June 2024</span>
+      </li>
+      <li>
+        <span class="title">microRNA-25 drives immune checkpoint therapy resistance by repressing innate and humoral immunity via Syndecan-3</span>
+        <span class="authors">Z. Zhu, W. Han, Y. Deng, <b>Z. Jia</b>, …, T. M. Rana</span>
+        <span class="meta"><span class="role">Co-author</span> &nbsp; <span class="venue">Nature Communications</span>, 2026 &nbsp; <a href="https://doi.org/10.1038/s41467-026-73339-y">doi:10.1038/s41467-026-73339-y</a></span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ============================================================
+       PROJECTS
+       ============================================================ -->
+  <section id="projects" aria-labelledby="projects-h">
+    <h2 id="projects-h">Projects</h2>
+
+    <div class="proj">
+      <h3><a href="https://github.com/m1fisher/cse251b_project">Multi-agent vehicle trajectory forecasting</a></h3>
+      <span class="meta">PyTorch, with Marshall Fisher. CSE 251B, Spring 2025. <a href="https://github.com/m1fisher/cse251b_project">Code</a></span>
+      <p>
+        A three-branch model that predicts an ego vehicle's path from its own history and up to
+        50 surrounding agents: a CNN over a rasterized scene, an LSTM over ego motion, and
+        transformer attention over neighbors, fused by a differentiable bilinear lookup so road
+        context reaches the sequence model. Cut prediction error 30% over the LSTM baseline.
+      </p>
+    </div>
+
+    <div class="proj">
+      <h3><a href="https://github.com/Zhaoyang-Jia/CSE258_TCGA">Glioma marker-gene prediction from TCGA transcriptomes</a></h3>
+      <span class="meta">scikit-learn, SHAP. CSE 258, Fall 2024. <a href="https://github.com/Zhaoyang-Jia/CSE258_TCGA">Code</a></span>
+      <p>
+        Predicting seven glioma marker genes from 60,660-gene RNA-seq on 408 TCGA samples, a
+        p&nbsp;≫&nbsp;n problem where regularization alone barely beat the mean. A coarse-to-fine
+        recursive feature elimination schedule selects a few hundred genes per target and cuts
+        test error by up to 82%; SHAP on the selected genes recovers the known cell-cycle program
+        behind Ki-67.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       EXPERIENCE
+       ============================================================ -->
+  <section id="experience" aria-labelledby="exp-h">
+    <h2 id="exp-h">Experience</h2>
+    <ul class="timeline">
+      <li>
+        <span class="when">2023 – present</span>
+        <div class="what">
+          <h3>Graduate student researcher</h3> <span class="where">· Bafna Lab, UC San Diego</span>
+          <p>Structural-variation detection in long reads, automated karyotyping, and the pipelines behind both.</p>
+        </div>
+      </li>
+      <li>
+        <span class="when">2022 – 2023</span>
+        <div class="what">
+          <h3>Undergraduate researcher</h3> <span class="where">· Rana Lab, UC San Diego</span>
+          <p>Reproducible, parameterized pipelines for bulk, small-RNA, single-cell RNA-seq, and iCLIP data; co-designed experiments with wet-lab biologists.</p>
+        </div>
+      </li>
+      <li>
+        <span class="when">2021 – 2022</span>
+        <div class="what">
+          <h3>Undergraduate researcher</h3> <span class="where">· Wu Lab, Scripps Research</span>
+          <p>A DNA-repair mechanism study end to end: CRISPR knockout lines, sequencing of repair products, and the analysis pipeline that flagged abnormal outcomes.</p>
+        </div>
+      </li>
+    </ul>
+
+    <h2 style="margin-top:2.5rem">Teaching and mentoring</h2>
+    <ul class="timeline">
+      <li>
+        <span class="when">2024 – present</span>
+        <div class="what"><h3>Project mentor</h3> <span class="where">· Bafna Lab</span><p>Supervising four bachelor's and master's students on modules of my project.</p></div>
+      </li>
+      <li>
+        <span class="when">Spring 2024</span>
+        <div class="what"><h3>Teaching assistant</h3> <span class="where">· CSE 284, Graduate Bioinformatics</span><p>Core course of the Bioinformatics PhD program.</p></div>
+      </li>
+      <li>
+        <span class="when">2022 – present</span>
+        <div class="what"><h3>Mentor</h3> <span class="where">· Mentor Collective, UC San Diego</span><p>Advised 12+ students on research and career paths.</p></div>
+      </li>
+    </ul>
+
+    <h2 style="margin-top:2.5rem">Education</h2>
+    <ul class="timeline">
+      <li>
+        <span class="when">2023 – 2028 (expected)</span>
+        <div class="what"><h3>PhD, Computer Science and Engineering</h3> <span class="where">· UC San Diego</span><p>Applied machine learning and computational genomics. Advisor: Vineet Bafna.</p></div>
+      </li>
+      <li>
+        <span class="when">2019 – 2023</span>
+        <div class="what"><h3>B.S. Mathematics–Computer Science and B.S. Molecular and Cell Biology</h3> <span class="where">· UC San Diego</span></div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer>
+    <p class="meta">
+      <a href="mailto:z4jia@ucsd.edu">z4jia@ucsd.edu</a> &nbsp;
+      <a href="https://github.com/Zhaoyang-Jia">GitHub</a> &nbsp;
+      <a href="https://www.linkedin.com/in/zhaoyangjia/">LinkedIn</a> &nbsp;
+      <a href="resume.pdf">CV</a>
+      <br>
+      San Diego, California. Last updated October 2026.
+      &nbsp; <button class="theme-toggle" type="button" data-toggle-theme>Switch theme</button>
+    </p>
+  </footer>
+
+</div>
+
+<script>
+/* ============================================================
+   Theme toggle: honors the OS setting by default, remembers an
+   explicit choice in localStorage (wrapped: storage can be off).
+   ============================================================ */
+(function () {
+  var root = document.documentElement;
+  var key = 'theme';
+  try { var saved = localStorage.getItem(key); if (saved) root.setAttribute('data-theme', saved); } catch (e) {}
+  var btn = document.querySelector('[data-toggle-theme]');
+  if (!btn) return;
+  btn.addEventListener('click', function () {
+    var dark = root.getAttribute('data-theme') === 'dark' ||
+      (!root.getAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    var next = dark ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem(key, next); } catch (e) {}
+  });
+})();
+</script>
+</body>
+</html>
