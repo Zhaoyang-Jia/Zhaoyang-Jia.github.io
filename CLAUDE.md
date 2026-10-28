@@ -37,15 +37,18 @@ Before pushing, check all four: light theme, dark theme (toggle in footer or OS 
 
 ## Page structure (top to bottom, same order in the file)
 
-1. `header.top` — small nav: Research, Publications, Projects, CV.
-2. `section.hero` — name (h1), one-line role, a three-sentence lede, contact links,
-   then `figure.figure` containing the **read pile-up SVG** (see below).
-3. `#research` — three themes as prose paragraphs, each with an `h3` and a `.meta` line.
-4. `#publications` — `ul.pubs`; each `li` has `.title`, `.authors`, `.meta` with a
+1. `header.top` — small nav: About, Research, Publications, Projects, CV.
+2. `section.hero` — name (h1), one-line role, `p.contact` (email, CV), then `ul.social`:
+   three inline-SVG icon links (Google Scholar, GitHub, LinkedIn). The icons are
+   Simple Icons paths pasted inline; no icon font, no CDN.
+3. `#about` — "About me" h2, the three-sentence lede, then `figure.figure` containing the
+   **read pile-up SVG** (see below).
+4. `#research` — three themes as prose paragraphs, each with an `h3` and a `.meta` line.
+5. `#publications` — `ul.pubs`; each `li` has `.title`, `.authors`, `.meta` with a
    `.role` tag (First author / Joint first author / Co-author), optional `.talk`.
-5. `#projects` — `div.proj` entries: `h3` (linked to the repo), `.meta`, one paragraph.
-6. `#experience` — three `ul.timeline` lists: Experience, Teaching and mentoring, Education.
-7. `footer` — contact links, location, "Last updated", theme toggle button.
+6. `#projects` — `div.proj` entries: `h3` (linked to the repo), `.meta`, one paragraph.
+7. `#experience` — three `ul.timeline` lists: Experience, Teaching and mentoring, Education.
+8. `footer` — contact links, location, "Last updated", theme toggle button.
 
 ## Design rules (deliberate; do not "improve" them away)
 
@@ -54,12 +57,14 @@ Before pushing, check all four: light theme, dark theme (toggle in footer or OS 
 - **Colors come only from the tokens in `:root`.** Dark mode is defined twice on purpose:
   under `@media (prefers-color-scheme: dark)` guarded by `:root:not([data-theme="light"])`,
   and again under `:root[data-theme="dark"]`. Any new color needs all three definitions.
-- **Single column, max-width `--measure` (44rem), left-aligned.** No cards, no box shadows,
+- **Single column, max-width `--measure` (56rem; widened from 44rem on 2026-10-28 to cut the side
+  white space), left-aligned.** No cards, no box shadows,
   no gradients, no rounded panels. Rules appear only where they encode structure
   (between publications; the timeline date column).
 - **Sentence case everywhere.** No all-caps labels, no eyebrow labels, no "01/02/03"
   numbering, no arrows appended to links.
-- **The pile-up is the one visual.** Don't add icons, hero images, or decorative motion.
+- **The pile-up is the one visual.** Don't add hero images or decorative motion. The only
+  icons are the three profile links in `ul.social` (added at the user's request, 2026-10-28).
   The only animation is the reads drawing in once on load, inside
   `@media (prefers-reduced-motion: no-preference)`. Keep that guard.
 - **No JavaScript beyond the theme toggle.** No analytics, no external scripts.
@@ -88,10 +93,7 @@ Before pushing, check all four: light theme, dark theme (toggle in footer or OS 
 
 ## Open items (as of 2026-10-28)
 
-- `Google Scholar` link in the hero points at `https://scholar.google.com/` (placeholder).
-  Replace with the profile URL or delete the link.
 - `resume.pdf` must be present at the repo root or the CV links 404.
-- Confirm the Bafna Lab link (`https://bafnalab.ucsd.edu/`) resolves.
 - Portrait: optional. Drop `photo.jpg` (~400 px square) at the root and uncomment the
   `<img class="portrait">` block above the `h1`. CSS for it already exists.
 - The resume's `Personal Website` link should point at `https://zhaoyang-jia.github.io/`.
