@@ -8,7 +8,7 @@ Single-file personal site. No build step, no dependencies beyond Google Fonts.
 |---------------|----------------------------------------------------------------|
 | `index.html`  | The whole site: markup, styles, and a 20-line theme toggle.    |
 | `resume.pdf`  | Compiled resume from Overleaf. The "Resume" links point here.     |
-| `photo.jpg`   | Optional portrait. Uncomment the `<img class="portrait">` block in `index.html` to show it. |
+| `photo.jpg`   | Hero banner photo, 1600 px wide, sRGB, EXIF stripped. The site's colors are sampled from it. |
 
 ## Deploy
 
@@ -23,8 +23,7 @@ Pushing to `main` redeploys automatically in about a minute.
 
 Everything is in `index.html`, top to bottom in the same order as the page. Colors and fonts are
 CSS variables in the `:root` block; the dark theme overrides them under `prefers-color-scheme`.
-The read pile-up in the hero is a static inline SVG (no JavaScript); regenerate or hand-edit the
-`<rect>` rows if you want a different pattern.
+The hero photo is `photo.jpg`; crop and position are set in the `.banner img` rule.
 
 ## Optional: custom domain
 

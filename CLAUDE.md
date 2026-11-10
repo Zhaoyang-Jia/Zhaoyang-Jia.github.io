@@ -14,7 +14,8 @@ Local working copy: `/Users/zhaoyangjia/Github_Repos/Personal_Website`.
 |---------------|----------------------------------------------------------------------|
 | `index.html`  | The entire site: markup, CSS, inline SVG, and a ~20-line theme toggle. |
 | `resume.pdf`  | Compiled resume from the Overleaf project. Every "Resume" link points here. |
-| `photo.jpg`   | Optional portrait (not present yet). See "Portrait" below.           |
+| `photo.jpg`   | Hero banner photo (1600 px, sRGB, EXIF stripped). Source of the palette. |
+| `omkar-fig1-light.png`, `omkar-fig1-dark.png` | OMKar paper Figure 1, recolored to the palette, one per theme (see below). |
 | `README.md`   | Deploy notes for humans.                                             |
 | `CLAUDE.md`   | This file.                                                           |
 
@@ -37,24 +38,31 @@ Before pushing, check all four: light theme, dark theme (toggle in footer or OS 
 
 ## Page structure (top to bottom, same order in the file)
 
-1. `header.top` — small nav: About, Research, Publications, Projects, Resume.
+1. `header.top` — small nav: About, Research, Publications, Resume.
 2. `section.hero` — name (h1), one-line role, `p.contact` (email, Resume), then `ul.social`:
    three inline-SVG icon links (Google Scholar, GitHub, LinkedIn). The icons are
-   Simple Icons paths pasted inline; no icon font, no CDN.
-3. `#about` — "About me" h2, the three-sentence lede, then `figure.figure` containing the
-   **read pile-up SVG** (see below).
+   Simple Icons paths pasted inline; no icon font, no CDN. Then `figure.banner`: `photo.jpg`
+   cropped by CSS to 5:2 (16:10 on phones) with `object-position: 50% 45%`.
+3. `#about` — "About me" h2 and two paragraphs of prose (user-written; edit only on request).
 4. `#research` — three themes as prose paragraphs, each with an `h3` and a `.meta` line.
+   The Robertsonian theme also holds `figure.schematic`: an inline `<svg class="rt">`
+   (viewBox 2560x810) redrawn from the user's schematic.png, colored only by tokens
+   (`--fig-blue`, `--fig-grey`, `--fig-dark`, `--loss`). It scrolls horizontally below 40rem.
+   The OMKar theme holds `figure.paperfig`: two transparent PNGs (`omkar-fig1-light.png`,
+   `omkar-fig1-dark.png`), swapped by the same three theme selectors the tokens use.
 5. `#publications` — `ul.pubs`; each `li` has `.title`, `.authors`, `.meta` with a
    `.role` tag (First author / Joint first author / Co-author), optional `.talk`.
-6. `#projects` — `div.proj` entries: `h3` (linked to the repo), `.meta`, one paragraph.
-7. `#experience` — three `ul.timeline` lists: Experience, Teaching and mentoring, Education.
-8. `footer` — contact links, location, "Last updated", theme toggle button.
+6. `#experience` — three `ul.timeline` lists: Experience, Teaching and mentoring, Education.
+7. `footer` — contact links, location, "Last updated", theme toggle button.
 
 ## Design rules (deliberate; do not "improve" them away)
 
 - **Two typefaces only.** `--sans` (IBM Plex Sans) for h1, h2, nav, dates, `.meta`;
   `--serif` (Source Serif 4) for body and h3. Do not add a third family.
-- **Colors come only from the tokens in `:root`.** Dark mode is defined twice on purpose:
+- **Colors come only from the tokens in `:root`,** and the tokens come from `photo.jpg`
+  (salt-flat paper, sky-blue accent, haze grey for muted text, jacket slate for ink; dark mode
+  inverts to dusk water and snow).
+  Dark mode is defined twice on purpose:
   under `@media (prefers-color-scheme: dark)` guarded by `:root:not([data-theme="light"])`,
   and again under `:root[data-theme="dark"]`. Any new color needs all three definitions.
 - **Single column, max-width `--measure` (56rem; widened from 44rem on 2026-10-28 to cut the side
@@ -63,48 +71,61 @@ Before pushing, check all four: light theme, dark theme (toggle in footer or OS 
   (between publications; the timeline date column).
 - **Sentence case everywhere.** No all-caps labels, no eyebrow labels, no "01/02/03"
   numbering, no arrows appended to links.
-- **The pile-up is the one visual.** Don't add hero images or decorative motion. The only
-  icons are the three profile links in `ul.social` (added at the user's request, 2026-10-28).
-  The only animation is the reads drawing in once on load, inside
-  `@media (prefers-reduced-motion: no-preference)`. Keep that guard.
+- **Three visuals: the hero photo, the Robertsonian schematic, and OMKar Figure 1.** No further
+  images, no icons beyond the three profile links in `ul.social`, no animation. The schematic's "loss" color is
+  the hat khaki from the photo, standing in for the red of the original figure. (The read pile-up SVG was removed on 2026-11-09; see below
+  if it is wanted back.)
 - **No JavaScript beyond the theme toggle.** No analytics, no external scripts.
 - **Keep it one file.** If a change needs a second file (other than `resume.pdf`,
-  `photo.jpg`, or `CNAME`), ask first.
+  `photo.jpg`, the two `omkar-fig1-*.png`, or `CNAME`), ask first.
 
 ## Content rules
 
 - **Facts come from the resume**, which is maintained in Overleaf and is the source of truth.
-  Every number on the page (60+ TB, 25x, 30% over LSTM baseline, 19–82% MSE, 408 samples,
-  60,660 genes, 102 patients, "up to three whole genomes per minute") was checked against it.
+  Every number on the page (60+ TB, 25x, "up to three whole genomes per minute") was checked
+  against it. The Robertsonian figures (1 in 800, 224 HPRC and 9 clinical samples, 100% recall,
+  98% precision) and the OMKar figures (144 of 154 karyotypes, 94%, five newly explained cases)
+  were supplied directly by the user on 2026-11-09.
   Do not change a number, a claim, or an author list without the user confirming it.
 - Authorship tags must stay exact: Robertsonian paper = first author (manuscript in
   preparation, preprint expected Nov 2026; ASHG 2026 **lightning talk**, not "flash talk");
   OMKar = **joint** first author, *Genome Research* 2025, poster at the American
   **Cytogenomics** Conference (not "Cytogenetics"), Norfolk, June 2024;
   miR-25 = co-author, *Nature Communications* 2026.
-- Course projects are labeled as such (course code and term in `.meta`). Don't present
-  them as research.
+- No course projects on the page (removed 2026-11-09). If they come back, label them with
+  course code and term and don't present them as research.
 - **Not on the site, by decision:** phone number, GPAs. Email is fine.
-- Prose, not bullet lists, in Research and Projects. Write for a reader who is an ML
+- Prose, not bullet lists, in Research. Write for a reader who is an ML
   engineer, not a geneticist: spell out an acronym once, then use it; cut jargon that
   doesn't earn its place.
 - When the resume changes, mirror the change here, then update the footer's
   "Last updated" line.
 
-## Open items (as of 2026-10-28)
+## Open items (as of 2026-11-09)
 
-- Portrait: optional. Drop `photo.jpg` (~400 px square) at the root and uncomment the
-  `<img class="portrait">` block above the `h1`. CSS for it already exists.
 - The resume's `Personal Website` link should point at `https://zhaoyang-jia.github.io/`.
 
-## The read pile-up SVG
+## OMKar Figure 1 bitmaps
 
-The hero figure is a static inline `<svg class="pileup">`: ~50 `<rect class="rd f|r">`
-reads on eight rows plus one dashed `<line class="jx">` at the junction. Classes `f`/`r`
-(forward/reverse strand) are colored by tokens `--read-f`/`--read-r`; the line by `--jx`.
-It was generated by the script below (deterministic seed). Re-run and paste the output
-over the existing `<svg>…</svg>` if the pattern needs to change; keep `viewBox`,
-`preserveAspectRatio="none"`, and `aria-hidden="true"`.
+Source: the user's own vector figure, `~/Downloads/OMKar_Figures_Revision/Fig1_second.pdf`
+(July 2025 revision; the published Genome Research Figure 1, CC BY-NC 4.0, user is joint first
+author). Pipeline, all on this Mac with no extra installs: Ghostscript 9.53 rasterizes the PDF to
+PPM at 200 dpi (1909x824); a pure-Python script decomposes each of the ~4,800 distinct colors as
+"key color at alpha over white", maps each key to a palette color (red/orange to `--loss`,
+yellow query bar to hat khaki, blues and pinks to `--fig-blue`/sky, greens to `--accent`/`--muted`,
+greys to `--fig-grey`, black to `--ink`) and writes RGBA PNGs with that alpha, so the page
+background shows through. Re-run the script if the palette changes; the key-to-target table is the
+only part to edit.
+
+## The read pile-up SVG (removed 2026-11-09, kept here for restoration)
+
+Until 2026-11-09 the About section ended in a `figure.figure` holding a static inline
+`<svg class="pileup">`: ~50 `<rect class="rd f|r">` reads on eight rows plus one dashed
+`<line class="jx">` at the junction, with a one-line figcaption and a draw-in animation under
+`@media (prefers-reduced-motion: no-preference)`. Its markup, CSS, and the `--read-f`,
+`--read-r`, `--jx` tokens are in git history (commit 817613c and earlier). The SVG itself
+comes from the script below (deterministic seed); keep `viewBox`,
+`preserveAspectRatio="none"`, and `aria-hidden="true"` if it is restored.
 
 ```python
 # regenerate the pile-up; prints the <svg> block to stdout

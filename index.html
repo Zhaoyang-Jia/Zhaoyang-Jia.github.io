@@ -13,42 +13,46 @@
    TOKENS
    ============================================================ */
 :root {
-  --bg: #ffffff;
-  --ink: #1a1d21;
-  --muted: #5d6670;
-  --rule: #e3e6e8;
-  --accent: #176b7a;
-  --accent-ink: #0f4e59;
-  --read-f: #e6b0a8;      /* forward-strand reads  */
-  --read-r: #a9bdd6;      /* reverse-strand reads  */
-  --jx: #1a1d21;          /* junction line         */
+  /* Palette sampled from photo.jpg: salt flat, sky, haze, hat, jacket. */
+  --bg: #f5f5f2;          /* salt flat                 */
+  --ink: #23292c;         /* jacket slate              */
+  --muted: #5f6d76;       /* horizon haze              */
+  --rule: #d9dedf;
+  --accent: #2b749c;          /* sky                       */
+  --accent-ink: #1f5c7d;
+  --fig-blue: #c3d9e6;    /* schematic: p-arm bodies (sky tint)   */
+  --fig-grey: #dcdedc;    /* schematic: q-arm bodies               */
+  --fig-dark: #7a8389;    /* schematic: centromeres, rDNA, caps    */
+  --loss: #a0702d;        /* schematic: copy-number loss (hat khaki) */
   --serif: "Source Serif 4", Charter, Georgia, serif;
   --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --measure: 56rem;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #121416;
-    --ink: #e7e9ea;
-    --muted: #9aa3ac;
-    --rule: #2a2f34;
-    --accent: #6cc1d0;
-    --accent-ink: #9ad8e3;
-    --read-f: #7d5651;
-    --read-r: #4b647f;
-    --jx: #e7e9ea;
+    --bg: #171c1f;          /* dusk water     */
+    --ink: #e6e8e6;         /* snow           */
+    --muted: #97a6ae;
+    --rule: #2b3438;
+    --accent: #7dbbdc;      /* sky            */
+    --accent-ink: #a6d1e8;
+    --fig-blue: #2f4d60;
+    --fig-grey: #3a4246;
+    --fig-dark: #8d979d;
+    --loss: #d9a860;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #121416;
-  --ink: #e7e9ea;
-  --muted: #9aa3ac;
-  --rule: #2a2f34;
-  --accent: #6cc1d0;
-  --accent-ink: #9ad8e3;
-  --read-f: #7d5651;
-  --read-r: #4b647f;
-  --jx: #e7e9ea;
+  --bg: #171c1f;          /* dusk water     */
+  --ink: #e6e8e6;         /* snow           */
+  --muted: #97a6ae;
+  --rule: #2b3438;
+  --accent: #7dbbdc;      /* sky            */
+  --accent-ink: #a6d1e8;
+  --fig-blue: #2f4d60;
+  --fig-grey: #3a4246;
+  --fig-dark: #8d979d;
+  --loss: #d9a860;
 }
 
 /* ============================================================
@@ -89,8 +93,6 @@ section:first-of-type { margin-top: 0; }
 @media (max-width: 600px) { .top .site-name { display: none; } .top nav { justify-content: flex-start; } }
 .top nav a:hover { color: var(--ink); }
 .hero { padding: 3.5rem 0 0; position: relative; }
-.portrait { float: right; width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0.4rem 0 1rem 1.5rem; }
-@media (max-width: 600px) { .portrait { width: 88px; height: 88px; } }
 .hero h1 { font-size: clamp(2.4rem, 6vw, 3.6rem); letter-spacing: -0.01em; }
 .hero .role { font-size: 1.25rem; margin: 0.6rem 0 1rem; }
 .contact { font-family: var(--sans); font-size: 0.9375rem; margin-top: 1.25rem; }
@@ -101,21 +103,10 @@ section:first-of-type { margin-top: 0; }
 .social svg { width: 1.5rem; height: 1.5rem; fill: currentColor; }
 #about { margin-top: 2.75rem; }
 
-/* ---- read pile-up figure ---- */
-.figure { margin: 2.5rem 0 0; }
-.pileup { display: block; width: 100%; height: 120px; }
-@media (max-width: 600px) { .pileup { height: 96px; } }
-.pileup .rd.f { fill: var(--read-f); }
-.pileup .rd.r { fill: var(--read-r); }
-.pileup .jx { stroke: var(--jx); stroke-width: 1.5; stroke-dasharray: 4 5; opacity: 0.7; }
-.figure figcaption { font-family: var(--sans); font-size: 0.8125rem; color: var(--muted); margin-top: 0.5rem; }
-@media (prefers-reduced-motion: no-preference) {
-  .pileup .rd { transform-origin: left center; transform: scaleX(0); animation: draw 0.9s cubic-bezier(.2,.7,.2,1) forwards; }
-  .pileup .rd:nth-of-type(3n+1) { animation-delay: 0.05s; }
-  .pileup .rd:nth-of-type(3n+2) { animation-delay: 0.18s; }
-  .pileup .rd:nth-of-type(3n)   { animation-delay: 0.32s; }
-  @keyframes draw { to { transform: scaleX(1); } }
-}
+/* ---- photo banner ---- */
+.banner { margin: 2rem 0 0; }
+.banner img { display: block; width: 100%; height: auto; aspect-ratio: 5 / 2; object-fit: cover; object-position: 50% 45%; }
+@media (max-width: 600px) { .banner img { aspect-ratio: 16 / 10; } }
 
 /* ============================================================
    RESEARCH
@@ -123,6 +114,38 @@ section:first-of-type { margin-top: 0; }
 .theme { margin-bottom: 1.75rem; }
 .theme h3 { margin-bottom: 0.25rem; }
 .theme p { margin-bottom: 0.5rem; }
+
+/* ---- Robertsonian schematic (inline SVG, colored by tokens) ---- */
+.schematic { margin: 1.25rem 0 0.75rem; overflow-x: auto; }
+.schematic svg.rt { display: block; width: 100%; min-width: 40rem; height: auto; }
+.schematic figcaption { font-family: var(--sans); font-size: 0.8125rem; color: var(--muted); margin-top: 0.5rem; }
+.rt .t { fill: var(--ink); }
+.rt .t.m { fill: var(--muted); }
+.rt .t.b { font-weight: 500; }
+.rt .t.loss-t { fill: var(--loss); }
+.rt .fblue { fill: var(--fig-blue); }
+.rt .fgrey { fill: var(--fig-grey); }
+.rt .fdark { fill: var(--fig-dark); }
+.rt .loss-l { stroke: var(--loss); stroke-width: 4; fill: none; }
+.rt .loss-f { fill: var(--loss); }
+.rt .loss-w { stroke: var(--loss); stroke-width: 9; fill: none; stroke-linejoin: miter; }
+.rt .mut-l { stroke: var(--muted); stroke-width: 4; fill: none; }
+.rt .mut-f { fill: var(--muted); }
+.rt .ink-w { stroke: var(--ink); stroke-width: 9; fill: none; }
+.rt .ax { stroke: var(--muted); stroke-width: 4; fill: none; }
+.rt .dash { stroke-dasharray: 14 12; }
+
+/* ---- OMKar overview (two recolored bitmaps, swapped with the theme) ---- */
+.paperfig { margin: 1.25rem 0 0.75rem; }
+.paperfig img { display: block; width: 100%; height: auto; }
+.paperfig .dark { display: none; }
+.paperfig figcaption { font-family: var(--sans); font-size: 0.8125rem; color: var(--muted); margin-top: 0.5rem; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .paperfig .light { display: none; }
+  :root:not([data-theme="light"]) .paperfig .dark { display: block; }
+}
+:root[data-theme="dark"] .paperfig .light { display: none; }
+:root[data-theme="dark"] .paperfig .dark { display: block; }
 
 /* ============================================================
    PUBLICATIONS
@@ -137,15 +160,6 @@ section:first-of-type { margin-top: 0; }
 .pubs .meta { display: block; margin-top: 0.35rem; }
 .pubs .role { font-family: var(--sans); font-size: 0.8125rem; color: var(--accent-ink); }
 .pubs .talk { display: block; margin-top: 0.3rem; }
-
-/* ============================================================
-   PROJECTS
-   ============================================================ */
-.proj { margin-bottom: 1.5rem; }
-.proj h3 { margin-bottom: 0.2rem; }
-.proj h3 a { color: inherit; text-decoration: none; }
-.proj h3 a:hover { color: var(--accent); }
-.proj .meta { display: block; margin-bottom: 0.35rem; }
 
 /* ============================================================
    EXPERIENCE TIMELINE (a real sequence, so a rule is earned)
@@ -188,7 +202,6 @@ footer .meta { line-height: 1.8; }
       <a href="#about">About</a>
       <a href="#research">Research</a>
       <a href="#publications">Publications</a>
-      <a href="#projects">Projects</a>
       <a href="resume.pdf">Resume</a>
     </nav>
   </header>
@@ -197,10 +210,6 @@ footer .meta { line-height: 1.8; }
        HERO
        ============================================================ -->
   <section class="hero" aria-labelledby="name">
-    <!-- Optional portrait: drop photo.jpg in the repo root and uncomment.
-         Keep it small (~400px wide); it sits right of the name on wide screens.
-    <img class="portrait" src="photo.jpg" alt="Zhaoyang Jia" width="120" height="120">
-    -->
     <h1 id="name">Zhaoyang Jia</h1>
     <p class="role">PhD student in computer science at UC San Diego</p>
     <p class="contact">
@@ -218,6 +227,11 @@ footer .meta { line-height: 1.8; }
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
       </a></li>
     </ul>
+
+    <figure class="banner">
+      <img src="photo.jpg" width="1600" height="1061" decoding="async"
+           alt="Zhaoyang Jia holding a film camera in front of a salt lake, with snow-capped volcanoes behind">
+    </figure>
   </section>
 
   <!-- ============================================================
@@ -226,70 +240,21 @@ footer .meta { line-height: 1.8; }
   <section id="about" aria-labelledby="about-h">
     <h2 id="about-h">About me</h2>
     <p class="lede">
-      I build methods that find structural rearrangements in long-read sequencing data,
-      and the pipelines that run them across biobank-scale genomes. I work in
-      <a href="https://vbafna.github.io/">Vineet Bafna's lab</a>, where my current focus is
-      detecting Robertsonian translocations from Oxford Nanopore reads.
+      I'm a PhD student in Computer Science at UC San Diego in
+      <a href="https://vbafna.github.io/">Vineet Bafna's lab</a>. I develop algorithms and machine
+      learning methods for clinical genomics, drawing on a strong foundation and experience in both
+      computer science and molecular biology.
+    </p>
+    <p>
+      My current work is on detecting and reconstructing complex structural rearrangements, including
+      Robertsonian translocations and extrachromosomal DNA (ecDNA), from long-read sequencing and
+      optical mapping data. The long-term goal is a single, cost-efficient clinical assay that captures
+      most of the genomic rearrangements and variations that matter for inheritance and disease. In
+      practice, that means working with clinicians and experimental biologists to turn their questions
+      into tractable computational problems, then building efficient and interpretable methods to
+      sieve signals from terabyte-scale whole-genome sequencing data.
     </p>
 
-    <figure class="figure">
-<svg class="pileup" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-<rect class="rd r" x="-91" y="6" width="118" height="7" rx="3.5"/>
-<rect class="rd f" x="43" y="6" width="163" height="7" rx="3.5"/>
-<rect class="rd f" x="219" y="6" width="162" height="7" rx="3.5"/>
-<rect class="rd r" x="411" y="6" width="109" height="7" rx="3.5"/>
-<rect class="rd r" x="572" y="6" width="155" height="7" rx="3.5"/>
-<rect class="rd f" x="766" y="6" width="112" height="7" rx="3.5"/>
-<rect class="rd r" x="917" y="6" width="159" height="7" rx="3.5"/>
-<rect class="rd f" x="-42" y="20" width="115" height="7" rx="3.5"/>
-<rect class="rd f" x="106" y="20" width="132" height="7" rx="3.5"/>
-<rect class="rd f" x="250" y="20" width="155" height="7" rx="3.5"/>
-<rect class="rd r" x="422" y="20" width="138" height="7" rx="3.5"/>
-<rect class="rd f" x="598" y="20" width="179" height="7" rx="3.5"/>
-<rect class="rd r" x="806" y="20" width="74" height="7" rx="3.5"/>
-<rect class="rd f" x="897" y="20" width="203" height="7" rx="3.5"/>
-<rect class="rd r" x="-59" y="34" width="75" height="7" rx="3.5"/>
-<rect class="rd f" x="51" y="34" width="88" height="7" rx="3.5"/>
-<rect class="rd r" x="172" y="34" width="220" height="7" rx="3.5"/>
-<rect class="rd f" x="400" y="34" width="117" height="7" rx="3.5"/>
-<rect class="rd f" x="574" y="34" width="130" height="7" rx="3.5"/>
-<rect class="rd f" x="718" y="34" width="84" height="7" rx="3.5"/>
-<rect class="rd f" x="826" y="34" width="178" height="7" rx="3.5"/>
-<rect class="rd r" x="-45" y="48" width="62" height="7" rx="3.5"/>
-<rect class="rd r" x="44" y="48" width="80" height="7" rx="3.5"/>
-<rect class="rd f" x="149" y="48" width="205" height="7" rx="3.5"/>
-<rect class="rd r" x="365" y="48" width="74" height="7" rx="3.5"/>
-<rect class="rd f" x="578" y="48" width="186" height="7" rx="3.5"/>
-<rect class="rd r" x="774" y="48" width="173" height="7" rx="3.5"/>
-<rect class="rd r" x="973" y="48" width="127" height="7" rx="3.5"/>
-<rect class="rd f" x="-28" y="62" width="137" height="7" rx="3.5"/>
-<rect class="rd r" x="141" y="62" width="169" height="7" rx="3.5"/>
-<rect class="rd r" x="345" y="62" width="175" height="7" rx="3.5"/>
-<rect class="rd f" x="533" y="62" width="141" height="7" rx="3.5"/>
-<rect class="rd r" x="703" y="62" width="69" height="7" rx="3.5"/>
-<rect class="rd f" x="810" y="62" width="154" height="7" rx="3.5"/>
-<rect class="rd r" x="994" y="62" width="106" height="7" rx="3.5"/>
-<rect class="rd f" x="-53" y="76" width="192" height="7" rx="3.5"/>
-<rect class="rd r" x="166" y="76" width="147" height="7" rx="3.5"/>
-<rect class="rd f" x="346" y="76" width="165" height="7" rx="3.5"/>
-<rect class="rd r" x="587" y="76" width="142" height="7" rx="3.5"/>
-<rect class="rd r" x="746" y="76" width="136" height="7" rx="3.5"/>
-<rect class="rd r" x="919" y="76" width="114" height="7" rx="3.5"/>
-<rect class="rd f" x="-13" y="90" width="96" height="7" rx="3.5"/>
-<rect class="rd f" x="120" y="90" width="219" height="7" rx="3.5"/>
-<rect class="rd f" x="571" y="90" width="131" height="7" rx="3.5"/>
-<rect class="rd f" x="732" y="90" width="93" height="7" rx="3.5"/>
-<rect class="rd r" x="854" y="90" width="183" height="7" rx="3.5"/>
-<rect class="rd r" x="-95" y="104" width="211" height="7" rx="3.5"/>
-<rect class="rd f" x="129" y="104" width="210" height="7" rx="3.5"/>
-<rect class="rd f" x="366" y="104" width="175" height="7" rx="3.5"/>
-<rect class="rd f" x="557" y="104" width="214" height="7" rx="3.5"/>
-<rect class="rd r" x="780" y="104" width="97" height="7" rx="3.5"/>
-<rect class="rd r" x="914" y="104" width="117" height="7" rx="3.5"/>
-<line class="jx" x1="560" y1="0" x2="560" y2="120"/>
-</svg>
-      <figcaption>Long reads piled up across a satellite junction. Fewer reads span the break: a copy-number loss, the signal my current method looks for.</figcaption>
-    </figure>
   </section>
 
   <!-- ============================================================
@@ -299,29 +264,130 @@ footer .meta { line-height: 1.8; }
     <h2 id="research-h">Research</h2>
 
     <div class="theme">
-      <h3>Robertsonian translocations from long reads</h3>
+      <h3>Detection of Robertsonian translocations from long-read sequencing</h3>
       <p>
-        Robertsonian translocations fuse two acrocentric chromosomes and are among the most common
-        constitutional rearrangements in humans, yet they sit in satellite repeats that short-read
-        methods cannot resolve. I estimate copy-number loss at the acrocentric satellite junctions
-        directly from Oxford Nanopore whole-genome sequencing. To make this practical on
-        unaligned biobank data, I trained a CNN+BiLSTM pre-filter that screens raw reads for
-        junction sequences before alignment, so the first pass over 60+ TB of data runs about
-        25 times faster than an alignment-first pipeline.
+        Robertsonian translocations (RTs) fuse two acrocentric chromosomes and are among the most
+        common constitutional rearrangements in humans (1 in 800), where half of the gametes produced
+        by the carrier are genotypically imbalanced, resulting in miscarriage or significant
+        developmental problems in the offspring. The fusion point sits in satellite repeats, so
+        conventional mapping-based methods cannot resolve it. An RT also deletes the short arms of
+        both chromosomes involved, but this loss cannot be measured from read depth because satellite
+        repeat lengths vary greatly across individuals. Thus, there has not been a reliable method to
+        diagnose RTs through sequencing.
       </p>
+      <p>
+        I hypothesized, developed, and deployed a novel method for estimating copy number loss of the
+        acrocentric p-arms directly from raw Oxford Nanopore long-read sequencing. Although the lengths
+        of the satellite arrays vary, I observed that their order along the short arms is highly
+        conserved, so I estimate short-arm copy number by counting the transitions between adjacent
+        satellite arrays instead of measuring depth. To make this practical on a large control cohort,
+        I trained a CNN+BiLSTM pre-filter that screens reads for candidate sequences before an exact
+        but more expensive dynamic programming step, making the first pass over 60+ TB of data about
+        25 times faster than an alignment-first pipeline. Across 224 HPRC and 9 clinical samples, the
+        method identified all known carriers (100% recall) at 98% precision.
+      </p>
+      <figure class="schematic">
+<svg class="rt" viewBox="0 0 2560 810" role="img" aria-labelledby="rt-fig-title">
+<title id="rt-fig-title">Schematic of a Robertsonian translocation between chromosomes 13 and 14 and the resulting copy-number loss of the short arms</title>
+<g font-family="var(--sans)">
+<text class="t" x="510" y="62" font-size="38" text-anchor="middle" >distal (p13)</text>
+<text class="t" x="800" y="62" font-size="38" text-anchor="middle" >rDNA (p12)</text>
+<text class="t" x="1125" y="62" font-size="38" text-anchor="middle" >proximal (p11)</text>
+<text class="t" x="1590" y="62" font-size="38" text-anchor="middle" >q-arm</text>
+<text class="t b" x="135" y="184" font-size="44" text-anchor="start" >Chr13</text>
+<rect class="fblue" x="330" y="125.0" width="360" height="90" rx="45"/>
+<path class="fdark" d="M375,125.0 A45,45 0 0 0 375,215.0 Z"/>
+<rect class="fdark" x="690" y="155" width="215" height="30" rx="0"/>
+<rect class="fblue" x="905" y="125.0" width="435" height="90" rx="45"/>
+<ellipse class="fdark" cx="1395" cy="170" rx="60" ry="35"/>
+<path class="fgrey" d="M1495,125.0 L1730,125.0 L1712,140.0 L1730,155.0 L1712,170.0 L1730,185.0 L1712,200.0 L1730,215.0 L1450,215.0 L1495,215.0 A45,45 0 0 1 1495,125.0 Z"/>
+<text class="t b" x="135" y="364" font-size="44" text-anchor="start" >Chr14</text>
+<rect class="fblue" x="330" y="305.0" width="360" height="90" rx="45"/>
+<path class="fdark" d="M375,305.0 A45,45 0 0 0 375,395.0 Z"/>
+<rect class="fdark" x="690" y="335" width="215" height="30" rx="0"/>
+<rect class="fblue" x="905" y="305.0" width="435" height="90" rx="45"/>
+<ellipse class="fdark" cx="1395" cy="350" rx="60" ry="35"/>
+<path class="fgrey" d="M1495,305.0 L1730,305.0 L1712,320.0 L1730,335.0 L1712,350.0 L1730,365.0 L1712,380.0 L1730,395.0 L1450,395.0 L1495,395.0 A45,45 0 0 1 1495,305.0 Z"/>
+<text class="t b" x="1395" y="440" font-size="40" text-anchor="middle" >CEN</text>
+<line class="loss-l" x1="325" y1="170" x2="1240" y2="170" />
+<polygon class="loss-f" points="1260,170 1231.2,152 1231.2,188"/>
+<line class="loss-l dash" x1="1260" y1="170" x2="1260" y2="350" />
+<line class="loss-l" x1="1260" y1="350" x2="345" y2="350" />
+<polygon class="loss-f" points="325,350 353.8,332 353.8,368"/>
+<line class="mut-l" x1="1775" y1="170" x2="1310" y2="170" />
+<polygon class="mut-f" points="1290,170 1318.8,152 1318.8,188"/>
+<line class="mut-l dash" x1="1290" y1="170" x2="1290" y2="350" />
+<line class="mut-l" x1="1290" y1="350" x2="1755" y2="350" />
+<polygon class="mut-f" points="1775,350 1746.2,332 1746.2,368"/>
+<text class="t m" x="100" y="545" font-size="36" text-anchor="middle" >diploid</text>
+<text class="t m" x="100" y="590" font-size="36" text-anchor="middle" >ACRO CN</text>
+<line class="ax" x1="270" y1="500" x2="270" y2="640" />
+<line class="ax" x1="255" y1="515" x2="285" y2="515" />
+<line class="ax" x1="255" y1="600" x2="285" y2="600" />
+<line class="ax" x1="258" y1="650" x2="282" y2="632" />
+<line class="ax" x1="258" y1="662" x2="282" y2="644" />
+<text class="t m" x="245" y="528" font-size="36" text-anchor="end" >10</text>
+<text class="t m" x="245" y="613" font-size="36" text-anchor="end" >8</text>
+<line class="ink-w" x1="325" y1="515" x2="1730" y2="515" />
+<polyline class="loss-w" points="325,600 1275,600 1275,515"/>
+<text class="t loss-t" x="800" y="688" font-size="38" text-anchor="middle" >CN loss in the RT carrier</text>
+<line class="ink-w" x1="1135" y1="675" x2="1210" y2="675" />
+<text class="t" x="1230" y="688" font-size="38" text-anchor="start" >wild type</text>
+<line class="loss-w" x1="1485" y1="675" x2="1560" y2="675" />
+<text class="t" x="1580" y="688" font-size="38" text-anchor="start" >RT carrier</text>
+<text class="t m" x="1955" y="185" font-size="38" text-anchor="middle" >derivative</text>
+<text class="t m" x="1955" y="230" font-size="38" text-anchor="middle" >chromosomes</text>
+<line class="mut-l" x1="1885" y1="262" x2="2000" y2="262" />
+<polygon class="mut-f" points="2020,262 1991.2,244 1991.2,280"/>
+<path class="fgrey" d="M2144,45 L2162.0,25 L2180,45 L2198.0,25 L2216,45 L2216,150 L2144,150 Z"/>
+<ellipse class="fdark" cx="2180" cy="235" rx="32" ry="55"/>
+<rect class="fblue" x="2144" y="275" width="72" height="150" rx="24"/>
+<ellipse class="fdark" cx="2180" cy="475" rx="32" ry="55"/>
+<path class="fgrey" d="M2144,525 L2216,525 L2216,690 L2198.0,670 L2180,690 L2162.0,670 L2144,690 Z"/>
+<line class="loss-l dash" x1="2135" y1="350" x2="2225" y2="350" />
+<text class="t m" x="2180" y="95" font-size="32" text-anchor="middle" transform="rotate(-90 2180 95)">13q</text>
+<text class="t m" x="2180" y="610" font-size="32" text-anchor="middle" transform="rotate(-90 2180 610)">14q</text>
+<text class="t b" x="2180" y="730" font-size="40" text-anchor="middle" >kept</text>
+<text class="t" x="2180" y="780" font-size="38" text-anchor="middle" >dicentric</text>
+<rect class="fblue" x="2379" y="70" width="72" height="110" rx="24"/>
+<ellipse class="fdark" cx="2415" cy="90" rx="36" ry="22"/>
+<rect class="fdark" x="2401" y="175" width="28" height="75" rx="0"/>
+<rect class="fblue" x="2379" y="245" width="72" height="210" rx="24"/>
+<rect class="fdark" x="2401" y="455" width="28" height="85" rx="0"/>
+<rect class="fblue" x="2379" y="535" width="72" height="100" rx="24"/>
+<ellipse class="fdark" cx="2415" cy="615" rx="36" ry="22"/>
+<line class="loss-l dash" x1="2370" y1="350" x2="2460" y2="350" />
+<text class="t m" x="2415" y="300" font-size="32" text-anchor="middle" transform="rotate(-90 2415 300)">13p</text>
+<text class="t m" x="2415" y="405" font-size="32" text-anchor="middle" transform="rotate(-90 2415 405)">14p</text>
+<text class="t b loss-t" x="2415" y="730" font-size="40" text-anchor="middle" >lost</text>
+<text class="t" x="2415" y="780" font-size="38" text-anchor="middle" >acentric</text>
+</g>
+</svg>
+        <figcaption>A Robertsonian translocation between chromosomes 13 and 14. The q-arms join into one dicentric chromosome that is kept; the short arms join into an acentric fragment that is lost, so the diploid copy number of the acrocentric p-arms drops from 10 to 8.</figcaption>
+      </figure>
       <p class="meta">First-author manuscript in preparation; preprint expected November 2026.</p>
     </div>
 
     <div class="theme">
-      <h3>Automated karyotyping</h3>
+      <h3>Automated karyotyping from optical genome maps</h3>
       <p>
-        <a href="https://doi.org/10.1101/gr.280536.125">OMKar</a> reconstructs a karyotype from
-        Bionano optical mapping or ONT data, automating what is otherwise a manual cytogenetics
-        workflow with graph algorithms and integer linear programming that reconcile parallel variant calls into a
-        consistent set of chromosomes. I share first authorship on the method and built the simulation-driven
-        test harness around it: parameterized random karyotypes at up to three whole genomes per
-        minute, with automated regression comparison across pipeline versions.
+        <a href="https://doi.org/10.1101/gr.280536.125">OMKar</a> reconstructs a full karyotype from
+        Bionano optical genome mapping, automating what is otherwise a manual cytogenetics workflow.
+        It uses graph algorithms and integer linear programming to reconcile structural variant and
+        copy number calls into a consistent set of chromosomes. We correctly reconstructed 144 of 154
+        clinical karyotypes (94%) and proposed genetic explanations for five cases that previously had
+        none. To validate the method, we built a simulation and evaluation framework around it: a
+        parameterized random karyotype generator that produces up to three whole genomes per minute,
+        and a quantitative karyotype comparison that drives automated regression testing across
+        pipeline versions. We also worked closely with cytogeneticists to turn OMKar's output into
+        ISCN-based reports and visualizations.
       </p>
+      <figure class="paperfig">
+        <img class="light" src="omkar-fig1-light.png" width="1909" height="824" loading="lazy" decoding="async"
+             alt="Overview of OMKar: alignments, structural variant calls and copy-number calls are filtered into a breakpoint graph; integer linear programming smooths edge multiplicities; Eulerian tours decompose the graph into chromosome paths; the result is reported as an ISCN karyotype with chromosome drawings">
+        <img class="dark" src="omkar-fig1-dark.png" width="1909" height="824" loading="lazy" decoding="async" alt="">
+        <figcaption>Overview of OMKar (Figure 1 of the paper, recolored). (A) Alignments, structural variant calls and copy-number calls are the input. (B) Low-confidence calls are filtered and a breakpoint graph is built. (C) Integer linear programming estimates edge multiplicities, then Eulerian tours decompose the graph into chromosome paths. (D) The result is annotated in ISCN nomenclature and drawn as chromosomes.</figcaption>
+      </figure>
       <p class="meta">Joint first author, <span class="venue">Genome Research</span>, 2025.</p>
     </div>
 
@@ -360,36 +426,6 @@ footer .meta { line-height: 1.8; }
         <span class="meta"><span class="role">Co-author</span> &nbsp; <span class="venue">Nature Communications</span>, 2026 &nbsp; <a href="https://doi.org/10.1038/s41467-026-73339-y">doi:10.1038/s41467-026-73339-y</a></span>
       </li>
     </ul>
-  </section>
-
-  <!-- ============================================================
-       PROJECTS
-       ============================================================ -->
-  <section id="projects" aria-labelledby="projects-h">
-    <h2 id="projects-h">Projects</h2>
-
-    <div class="proj">
-      <h3><a href="https://github.com/m1fisher/cse251b_project">Multi-agent vehicle trajectory forecasting</a></h3>
-      <span class="meta">PyTorch, with Marshall Fisher. CSE 251B, Spring 2025. <a href="https://github.com/m1fisher/cse251b_project">Code</a></span>
-      <p>
-        A three-branch model that predicts an ego vehicle's path from its own history and up to
-        50 surrounding agents: a CNN over a rasterized scene, an LSTM over ego motion, and
-        transformer attention over neighbors, fused by a differentiable bilinear lookup so road
-        context reaches the sequence model. Cut prediction error 30% over the LSTM baseline.
-      </p>
-    </div>
-
-    <div class="proj">
-      <h3><a href="https://github.com/Zhaoyang-Jia/CSE258_TCGA">Glioma marker-gene prediction from TCGA transcriptomes</a></h3>
-      <span class="meta">scikit-learn, SHAP. CSE 258, Fall 2024. <a href="https://github.com/Zhaoyang-Jia/CSE258_TCGA">Code</a></span>
-      <p>
-        Predicting seven glioma marker genes from 60,660-gene RNA-seq on 408 TCGA samples, a
-        p&nbsp;≫&nbsp;n problem where regularization alone barely beat the mean. A coarse-to-fine
-        recursive feature elimination schedule selects a few hundred genes per target and cuts
-        test error by up to 82%; SHAP on the selected genes recovers the known cell-cycle program
-        behind Ki-67.
-      </p>
-    </div>
   </section>
 
   <!-- ============================================================
@@ -461,7 +497,7 @@ footer .meta { line-height: 1.8; }
       <a href="https://scholar.google.com/citations?user=5rCNImkAAAAJ&amp;hl=en">Google Scholar</a> &nbsp;
       <a href="resume.pdf">Resume</a>
       <br>
-      San Diego, California. Last updated October 2026.
+      San Diego, California. Last updated November 2026.
       &nbsp; <button class="theme-toggle" type="button" data-toggle-theme>Switch theme</button>
     </p>
   </footer>
