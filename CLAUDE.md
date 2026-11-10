@@ -44,9 +44,10 @@ Before pushing, check all four: light theme, dark theme (toggle in footer or OS 
    Simple Icons paths pasted inline; no icon font, no CDN. Then `figure.banner`: `photo.jpg`
    cropped by CSS to 5:2 (16:10 on phones) with `object-position: 50% 45%`.
 3. `#about` — "About me" h2 and two paragraphs of prose (user-written; edit only on request).
-4. `#publications` — `ul.pubs`; each `li` has `.title`, `.authors`, `.meta` with a
+4. `#education` — one `ul.timeline` (PhD, then the two B.S. degrees).
+5. `#publications` — `ul.pubs`; each `li` has `.title`, `.authors`, `.meta` with a
    `.role` tag (First author / Joint first author / Co-author), optional `.talk`.
-5. `#research` — four themes as prose paragraphs, each with an `h3` and a `.meta` line.
+6. `#research` — four themes as prose paragraphs, each with an `h3` and a `.meta` line.
    In the first two themes the figure comes directly after the `h3`, before the prose.
    The Robertsonian theme holds `figure.schematic`: an inline `<svg class="rt">`
    (viewBox 2560x810) redrawn from the user's schematic.png, colored only by tokens
@@ -56,8 +57,8 @@ Before pushing, check all four: light theme, dark theme (toggle in footer or OS 
    The third theme (miR-25, Rana Lab) holds another `figure.schematic` with `<svg class="mir">`,
    a two-row pathway diagram; it shares the `.schematic` CSS classes with the RT figure.
    The fourth theme (Wu Lab wet-lab work) is prose only, written from the resume's Wu Lab bullets.
-6. `#experience` — three `ul.timeline` lists: Experience, Teaching and mentoring, Education.
-7. `footer` — contact links, location, "Last updated", theme toggle button.
+7. `#experience` — two `ul.timeline` lists: Experience, Teaching and mentoring.
+8. `footer` — contact links, location, "Last updated", theme toggle button.
 
 ## Design rules (deliberate; do not "improve" them away)
 
