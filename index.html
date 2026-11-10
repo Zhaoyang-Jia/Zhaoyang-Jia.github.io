@@ -116,27 +116,28 @@ section:first-of-type { margin-top: 0; }
 .theme p { margin-bottom: 0.5rem; }
 
 /* ---- Robertsonian schematic (inline SVG, colored by tokens) ---- */
-.schematic { margin: 1.25rem 0 0.75rem; overflow-x: auto; }
-.schematic svg.rt { display: block; width: 100%; min-width: 40rem; height: auto; }
+.schematic { margin: 0.75rem 0 1rem; overflow-x: auto; }
+.schematic svg { display: block; width: 100%; min-width: 40rem; height: auto; }
 .schematic figcaption { font-family: var(--sans); font-size: 0.8125rem; color: var(--muted); margin-top: 0.5rem; }
-.rt .t { fill: var(--ink); }
-.rt .t.m { fill: var(--muted); }
-.rt .t.b { font-weight: 500; }
-.rt .t.loss-t { fill: var(--loss); }
-.rt .fblue { fill: var(--fig-blue); }
-.rt .fgrey { fill: var(--fig-grey); }
-.rt .fdark { fill: var(--fig-dark); }
-.rt .loss-l { stroke: var(--loss); stroke-width: 4; fill: none; }
-.rt .loss-f { fill: var(--loss); }
-.rt .loss-w { stroke: var(--loss); stroke-width: 9; fill: none; stroke-linejoin: miter; }
-.rt .mut-l { stroke: var(--muted); stroke-width: 4; fill: none; }
-.rt .mut-f { fill: var(--muted); }
-.rt .ink-w { stroke: var(--ink); stroke-width: 9; fill: none; }
-.rt .ax { stroke: var(--muted); stroke-width: 4; fill: none; }
-.rt .dash { stroke-dasharray: 14 12; }
+.schematic .t { fill: var(--ink); }
+.schematic .t.m { fill: var(--muted); }
+.schematic .t.b { font-weight: 500; }
+.schematic .t.loss-t { fill: var(--loss); }
+.schematic .fblue { fill: var(--fig-blue); }
+.schematic .fgrey { fill: var(--fig-grey); }
+.schematic .fdark { fill: var(--fig-dark); }
+.schematic .loss-l { stroke: var(--loss); stroke-width: 4; fill: none; }
+.schematic .loss-f { fill: var(--loss); }
+.schematic .loss-w { stroke: var(--loss); stroke-width: 9; fill: none; stroke-linejoin: miter; }
+.schematic .mut-l { stroke: var(--muted); stroke-width: 4; fill: none; }
+.schematic .mut-f { fill: var(--muted); }
+.schematic .ink-w { stroke: var(--ink); stroke-width: 9; fill: none; }
+.schematic .ink-l { stroke: var(--ink); stroke-width: 4; fill: none; }
+.schematic .ax { stroke: var(--muted); stroke-width: 4; fill: none; }
+.schematic .dash { stroke-dasharray: 14 12; }
 
 /* ---- OMKar overview (two recolored bitmaps, swapped with the theme) ---- */
-.paperfig { margin: 1.25rem 0 0.75rem; }
+.paperfig { margin: 0.75rem 0 1rem; }
 .paperfig img { display: block; width: 100%; height: auto; }
 .paperfig .dark { display: none; }
 .paperfig figcaption { font-family: var(--sans); font-size: 0.8125rem; color: var(--muted); margin-top: 0.5rem; }
@@ -200,8 +201,8 @@ footer .meta { line-height: 1.8; }
     <span class="meta site-name">Zhaoyang Jia</span>
     <nav aria-label="Sections">
       <a href="#about">About</a>
-      <a href="#research">Research</a>
       <a href="#publications">Publications</a>
+      <a href="#research">Research</a>
       <a href="resume.pdf">Resume</a>
     </nav>
   </header>
@@ -258,6 +259,32 @@ footer .meta { line-height: 1.8; }
   </section>
 
   <!-- ============================================================
+       PUBLICATIONS
+       ============================================================ -->
+  <section id="publications" aria-labelledby="pubs-h">
+    <h2 id="pubs-h">Publications and presentations</h2>
+    <ul class="pubs">
+      <li>
+        <span class="title">Accurate detection of Robertsonian translocations using ONT long-reads by estimating CN-loss at acrocentric satellite junctions</span>
+        <span class="authors"><b>Z. Jia</b>, T. Löwenstern, M. Park, P. Dremsek, V. Bafna</span>
+        <span class="meta"><span class="role">First author</span> &nbsp; Manuscript in preparation; preprint expected Nov. 2026</span>
+        <span class="talk meta">Lightning talk and poster, ASHG Annual Meeting, Montreal, Oct. 2026</span>
+      </li>
+      <li>
+        <span class="title">OMKar: optical map based automated karyotyping of genomes to identify constitutional abnormalities</span>
+        <span class="authors">S. R. Dehkordi*, <b>Z. Jia</b>*, J. Estabrook, …, V. Bafna</span>
+        <span class="meta"><span class="role">Joint first author</span> &nbsp; <span class="venue">Genome Research</span>, 2025 &nbsp; <a href="https://doi.org/10.1101/gr.280536.125">doi:10.1101/gr.280536.125</a></span>
+        <span class="talk meta">Poster, American Cytogenomics Conference, Norfolk, June 2024</span>
+      </li>
+      <li>
+        <span class="title">microRNA-25 drives immune checkpoint therapy resistance by repressing innate and humoral immunity via Syndecan-3</span>
+        <span class="authors">Z. Zhu, W. Han, Y. Deng, <b>Z. Jia</b>, …, T. M. Rana</span>
+        <span class="meta"><span class="role">Co-author</span> &nbsp; <span class="venue">Nature Communications</span>, 2026 &nbsp; <a href="https://doi.org/10.1038/s41467-026-73339-y">doi:10.1038/s41467-026-73339-y</a></span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ============================================================
        RESEARCH
        ============================================================ -->
   <section id="research" aria-labelledby="research-h">
@@ -265,27 +292,6 @@ footer .meta { line-height: 1.8; }
 
     <div class="theme">
       <h3>Detection of Robertsonian translocations from long-read sequencing</h3>
-      <p>
-        Robertsonian translocations (RTs) fuse two acrocentric chromosomes and are among the most
-        common constitutional rearrangements in humans (1 in 800), where half of the gametes produced
-        by the carrier are genotypically imbalanced, resulting in miscarriage or significant
-        developmental problems in the offspring. The fusion point sits in satellite repeats, so
-        conventional mapping-based methods cannot resolve it. An RT also deletes the short arms of
-        both chromosomes involved, but this loss cannot be measured from read depth because satellite
-        repeat lengths vary greatly across individuals. Thus, there has not been a reliable method to
-        diagnose RTs through sequencing.
-      </p>
-      <p>
-        I hypothesized, developed, and deployed a novel method for estimating copy number loss of the
-        acrocentric p-arms directly from raw Oxford Nanopore long-read sequencing. Although the lengths
-        of the satellite arrays vary, I observed that their order along the short arms is highly
-        conserved, so I estimate short-arm copy number by counting the transitions between adjacent
-        satellite arrays instead of measuring depth. To make this practical on a large control cohort,
-        I trained a CNN+BiLSTM pre-filter that screens reads for candidate sequences before an exact
-        but more expensive dynamic programming step, making the first pass over 60+ TB of data about
-        25 times faster than an alignment-first pipeline. Across 224 HPRC and 9 clinical samples, the
-        method identified all known carriers (100% recall) at 98% precision.
-      </p>
       <figure class="schematic">
 <svg class="rt" viewBox="0 0 2560 810" role="img" aria-labelledby="rt-fig-title">
 <title id="rt-fig-title">Schematic of a Robertsonian translocation between chromosomes 13 and 14 and the resulting copy-number loss of the short arms</title>
@@ -365,11 +371,38 @@ footer .meta { line-height: 1.8; }
 </svg>
         <figcaption>A Robertsonian translocation between chromosomes 13 and 14. The q-arms join into one dicentric chromosome that is kept; the short arms join into an acentric fragment that is lost, so the diploid copy number of the acrocentric p-arms drops from 10 to 8.</figcaption>
       </figure>
+      <p>
+        Robertsonian translocations (RTs) fuse two acrocentric chromosomes and are among the most
+        common constitutional rearrangements in humans (1 in 800), where half of the gametes produced
+        by the carrier are genotypically imbalanced, resulting in miscarriage or significant
+        developmental problems in the offspring. The fusion point sits in satellite repeats, so
+        conventional mapping-based methods cannot resolve it. An RT also deletes the short arms of
+        both chromosomes involved, but this loss cannot be measured from read depth because satellite
+        repeat lengths vary greatly across individuals. Thus, there has not been a reliable method to
+        diagnose RTs through sequencing.
+      </p>
+      <p>
+        I hypothesized, developed, and deployed a novel method for estimating copy number loss of the
+        acrocentric p-arms directly from raw Oxford Nanopore long-read sequencing. Although the lengths
+        of the satellite arrays vary, I observed that their order along the short arms is highly
+        conserved, so I estimate short-arm copy number by counting the transitions between adjacent
+        satellite arrays instead of measuring depth. To make this practical on a large control cohort,
+        I trained a CNN+BiLSTM pre-filter that screens reads for candidate sequences before an exact
+        but more expensive dynamic programming step, making the first pass over 60+ TB of data about
+        25 times faster than an alignment-first pipeline. Across 224 HPRC and 9 clinical samples, the
+        method identified all known carriers (100% recall) at 98% precision.
+      </p>
       <p class="meta">First-author manuscript in preparation; preprint expected November 2026.</p>
     </div>
 
     <div class="theme">
       <h3>Automated karyotyping from optical genome maps</h3>
+      <figure class="paperfig">
+        <img class="light" src="omkar-fig1-light.png" width="1909" height="824" loading="lazy" decoding="async"
+             alt="Overview of OMKar: alignments, structural variant calls and copy-number calls are filtered into a breakpoint graph; integer linear programming smooths edge multiplicities; Eulerian tours decompose the graph into chromosome paths; the result is reported as an ISCN karyotype with chromosome drawings">
+        <img class="dark" src="omkar-fig1-dark.png" width="1909" height="824" loading="lazy" decoding="async" alt="">
+        <figcaption>Overview of OMKar (Figure 1 of the paper, recolored). (A) Alignments, structural variant calls and copy-number calls are the input. (B) Low-confidence calls are filtered and a breakpoint graph is built. (C) Integer linear programming estimates edge multiplicities, then Eulerian tours decompose the graph into chromosome paths. (D) The result is annotated in ISCN nomenclature and drawn as chromosomes.</figcaption>
+      </figure>
       <p>
         <a href="https://doi.org/10.1101/gr.280536.125">OMKar</a> reconstructs a full karyotype from
         Bionano optical genome mapping, automating what is otherwise a manual cytogenetics workflow.
@@ -382,50 +415,99 @@ footer .meta { line-height: 1.8; }
         pipeline versions. We also worked closely with cytogeneticists to turn OMKar's output into
         ISCN-based reports and visualizations.
       </p>
-      <figure class="paperfig">
-        <img class="light" src="omkar-fig1-light.png" width="1909" height="824" loading="lazy" decoding="async"
-             alt="Overview of OMKar: alignments, structural variant calls and copy-number calls are filtered into a breakpoint graph; integer linear programming smooths edge multiplicities; Eulerian tours decompose the graph into chromosome paths; the result is reported as an ISCN karyotype with chromosome drawings">
-        <img class="dark" src="omkar-fig1-dark.png" width="1909" height="824" loading="lazy" decoding="async" alt="">
-        <figcaption>Overview of OMKar (Figure 1 of the paper, recolored). (A) Alignments, structural variant calls and copy-number calls are the input. (B) Low-confidence calls are filtered and a breakpoint graph is built. (C) Integer linear programming estimates edge multiplicities, then Eulerian tours decompose the graph into chromosome paths. (D) The result is annotated in ISCN nomenclature and drawn as chromosomes.</figcaption>
-      </figure>
       <p class="meta">Joint first author, <span class="venue">Genome Research</span>, 2025.</p>
     </div>
 
     <div class="theme">
-      <h3>Pipelines at scale</h3>
+      <h3>MicroRNA-25 and resistance to immune checkpoint therapy</h3>
+      <figure class="schematic">
+<svg class="mir" viewBox="0 0 1200 560" role="img" aria-labelledby="mir-fig-title">
+<title id="mir-fig-title">Two rows. Top: with miR-25 present, interferon-gamma induces miR-25, which represses Syndecan-3; macrophages show low MHC II, fibroblasts stay quiescent, and the tumor resists anti-PD-1. Bottom: with miR-25 deleted or its binding site in Sdc3 edited, SDC3 is expressed, macrophages raise MHC II, fibroblasts activate complement, and the tumor responds to anti-PD-1.</title>
+<g font-family="var(--sans)">
+<text class="t b" x="20" y="38" font-size="28">miR-25 present (wild type): cold tumor</text>
+<rect class="fblue" x="20" y="95" width="150" height="80" rx="14"/>
+<text class="t" x="95.0" y="145" font-size="28" text-anchor="middle">IFN-γ</text>
+<line class="mut-l" x1="170" y1="135" x2="223" y2="135"/>
+<polygon class="mut-f" points="245,135 219,122 219,148"/>
+<rect class="fblue" x="245" y="95" width="170" height="80" rx="14"/>
+<text class="t" x="330.0" y="145" font-size="28" text-anchor="middle">miR-25</text>
+<line class="ink-l" x1="415" y1="135" x2="486" y2="135" />
+<line class="ink-l" x1="490" y1="115" x2="490" y2="155" stroke-width="6" />
+<rect class="fgrey" x="490" y="95" width="150" height="80" rx="14"/>
+<text class="t m" x="565.0" y="145" font-size="28" text-anchor="middle">SDC3</text>
+<line class="mut-l" x1="640" y1="135" x2="693" y2="135"/>
+<polygon class="mut-f" points="715,135 689,122 689,148"/>
+<rect class="fgrey" x="715" y="73" width="250" height="124" rx="14"/>
+<text class="t m" x="840.0" y="128" font-size="26" text-anchor="middle">TAMs: MHC II low</text>
+<text class="t m" x="840.0" y="160" font-size="26" text-anchor="middle">CAFs: quiescent</text>
+<line class="mut-l" x1="965" y1="135" x2="1018" y2="135"/>
+<polygon class="mut-f" points="1040,135 1014,122 1014,148"/>
+<rect class="fgrey" x="1040" y="73" width="145" height="124" rx="14"/>
+<text class="t m" x="1112.5" y="128" font-size="26" text-anchor="middle">resists</text>
+<text class="t m" x="1112.5" y="160" font-size="26" text-anchor="middle">anti-PD-1</text>
+<text class="t b loss-t" x="20" y="318" font-size="28">Mir25 knockout, or miR-25 site in Sdc3 edited: inflamed tumor</text>
+<rect class="fblue" x="20" y="375" width="150" height="80" rx="14"/>
+<text class="t" x="95.0" y="425" font-size="28" text-anchor="middle">IFN-γ</text>
+<line class="mut-l" x1="170" y1="415" x2="223" y2="415"/>
+<polygon class="mut-f" points="245,415 219,402 219,428"/>
+<rect class="fgrey" x="245" y="375" width="170" height="80" rx="14"/>
+<text class="t m" x="330.0" y="425" font-size="28" text-anchor="middle">miR-25</text>
+<line class="mut-l" x1="415" y1="415" x2="486" y2="415" stroke-dasharray="10 10"/>
+<line class="mut-l" x1="490" y1="395" x2="490" y2="435" stroke-width="6" stroke-dasharray="10 10"/>
+<line class="loss-l" x1="300" y1="400" x2="360" y2="430" stroke-width="7"/>
+<line class="loss-l" x1="360" y1="400" x2="300" y2="430" stroke-width="7"/>
+<rect class="fblue" x="490" y="375" width="150" height="80" rx="14"/>
+<text class="t" x="565.0" y="425" font-size="28" text-anchor="middle">SDC3</text>
+<line class="mut-l" x1="640" y1="415" x2="693" y2="415"/>
+<polygon class="mut-f" points="715,415 689,402 689,428"/>
+<rect class="fblue" x="715" y="353" width="250" height="124" rx="14"/>
+<text class="t" x="840.0" y="408" font-size="26" text-anchor="middle">TAMs: MHC II ↑</text>
+<text class="t" x="840.0" y="440" font-size="26" text-anchor="middle">CAFs: complement ↑</text>
+<line class="mut-l" x1="965" y1="415" x2="1018" y2="415"/>
+<polygon class="mut-f" points="1040,415 1014,402 1014,428"/>
+<rect class="fblue" x="1040" y="353" width="145" height="124" rx="14"/>
+<text class="t" x="1112.5" y="408" font-size="26" text-anchor="middle">responds to</text>
+<text class="t" x="1112.5" y="440" font-size="26" text-anchor="middle">anti-PD-1</text>
+</g>
+</svg>
+        <figcaption>Interferon-γ induces miR-25, which represses Syndecan-3 (SDC3). Deleting miR-25, or editing its binding site in <i>Sdc3</i>, lifts that brake: macrophages present more antigen, fibroblasts activate complement, and tumors that ignored anti-PD-1 start to respond.</figcaption>
+      </figure>
       <p>
-        Much of my day-to-day is engineering: modular pipelines that survive contact with
-        tens of terabytes, Python multiprocessing, and memory and runtime profiling. Earlier,
-        I built reproducible RNA-seq and iCLIP pipelines for a wet-lab group and ran a DNA-repair
-        study end to end, from CRISPR knockouts to the sequencing analysis.
+        Immune checkpoint therapy can produce durable remissions, but most tumors resist it because
+        their microenvironment stays immunologically cold. We found that removing microRNA-25 (miR-25)
+        sensitizes tumors to checkpoint therapy across several syngeneic mouse models. Interferon-γ
+        induces miR-25, which represses Syndecan-3 (SDC3); without this brake, tumor-associated
+        macrophages express more MHC class II and cancer-associated fibroblasts turn on classical
+        complement signaling, shifting the whole microenvironment toward an inflammatory state.
+        Ultimately, this points to a way of turning immune-cold tumors into ones that respond to
+        checkpoint therapy.
       </p>
+      <p>
+        I did the bioinformatics for this project and was closely involved in designing the
+        experiments from conception. I built reproducible, parameterized pipelines that took the bulk,
+        small-RNA, single-cell RNA-seq, and iCLIP data from raw reads to analysis-ready count matrices
+        and QC reports, including the 70,617-cell single-cell dataset behind the population shifts
+        above.
+      </p>
+      <p class="meta">Co-author, <span class="venue">Nature Communications</span>, 2026.</p>
     </div>
-  </section>
 
-  <!-- ============================================================
-       PUBLICATIONS
-       ============================================================ -->
-  <section id="publications" aria-labelledby="pubs-h">
-    <h2 id="pubs-h">Publications and presentations</h2>
-    <ul class="pubs">
-      <li>
-        <span class="title">Accurate detection of Robertsonian translocations using ONT long-reads by estimating CN-loss at acrocentric satellite junctions</span>
-        <span class="authors"><b>Z. Jia</b>, T. Löwenstern, M. Park, P. Dremsek, V. Bafna</span>
-        <span class="meta"><span class="role">First author</span> &nbsp; Manuscript in preparation; preprint expected Nov. 2026</span>
-        <span class="talk meta">Lightning talk and poster, ASHG Annual Meeting, Montreal, Oct. 2026</span>
-      </li>
-      <li>
-        <span class="title">OMKar: optical map based automated karyotyping of genomes to identify constitutional abnormalities</span>
-        <span class="authors">S. R. Dehkordi*, <b>Z. Jia</b>*, J. Estabrook, …, V. Bafna</span>
-        <span class="meta"><span class="role">Joint first author</span> &nbsp; <span class="venue">Genome Research</span>, 2025 &nbsp; <a href="https://doi.org/10.1101/gr.280536.125">doi:10.1101/gr.280536.125</a></span>
-        <span class="talk meta">Poster, American Cytogenomics Conference, Norfolk, June 2024</span>
-      </li>
-      <li>
-        <span class="title">microRNA-25 drives immune checkpoint therapy resistance by repressing innate and humoral immunity via Syndecan-3</span>
-        <span class="authors">Z. Zhu, W. Han, Y. Deng, <b>Z. Jia</b>, …, T. M. Rana</span>
-        <span class="meta"><span class="role">Co-author</span> &nbsp; <span class="venue">Nature Communications</span>, 2026 &nbsp; <a href="https://doi.org/10.1038/s41467-026-73339-y">doi:10.1038/s41467-026-73339-y</a></span>
-      </li>
-    </ul>
+    <div class="theme">
+      <h3>Wet-lab training: CRISPR knockouts for DNA double-strand-break repair</h3>
+      <p>
+        Before moving fully to computation I spent a year at the bench in the Wu Lab at Scripps
+        Research, studying how cells repair DNA double-strand breaks. I designed and generated CRISPR
+        knockouts in U2OS reporter cell lines built to read out break-induced replication (BIR), a
+        repair pathway that copies from a template and can switch templates partway through, leaving
+        rearrangements behind. I established the validation assays for the knockouts, ran
+        next-generation and Sanger sequencing on the reporter constructs, and then built the analysis
+        pipeline that detects abnormal repair products in those reads and quantifies how often BIR
+        switches templates. That year at the bench taught me the potential and the limitations of modern
+        molecular biology techniques, so I can talk with experimentalists in their own terms and
+        design computational methods around what a protocol will actually produce.
+      </p>
+      <p class="meta">Undergraduate researcher, Wu Lab, Scripps Research, 2021 – 2022.</p>
+    </div>
   </section>
 
   <!-- ============================================================
@@ -438,7 +520,7 @@ footer .meta { line-height: 1.8; }
         <span class="when">2023 – present</span>
         <div class="what">
           <h3>Graduate student researcher</h3> <span class="where">· Bafna Lab, UC San Diego</span>
-          <p>Structural-variation detection in long reads, automated karyotyping, and the pipelines behind both.</p>
+          <p>Structural-variation detection in long reads, automated karyotyping, and bp-level sequence reconstruction of ecDNA breakpoints.</p>
         </div>
       </li>
       <li>

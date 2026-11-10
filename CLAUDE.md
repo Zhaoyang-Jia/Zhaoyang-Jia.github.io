@@ -38,20 +38,24 @@ Before pushing, check all four: light theme, dark theme (toggle in footer or OS 
 
 ## Page structure (top to bottom, same order in the file)
 
-1. `header.top` — small nav: About, Research, Publications, Resume.
+1. `header.top` — small nav: About, Publications, Research, Resume.
 2. `section.hero` — name (h1), one-line role, `p.contact` (email, Resume), then `ul.social`:
    three inline-SVG icon links (Google Scholar, GitHub, LinkedIn). The icons are
    Simple Icons paths pasted inline; no icon font, no CDN. Then `figure.banner`: `photo.jpg`
    cropped by CSS to 5:2 (16:10 on phones) with `object-position: 50% 45%`.
 3. `#about` — "About me" h2 and two paragraphs of prose (user-written; edit only on request).
-4. `#research` — three themes as prose paragraphs, each with an `h3` and a `.meta` line.
-   The Robertsonian theme also holds `figure.schematic`: an inline `<svg class="rt">`
+4. `#publications` — `ul.pubs`; each `li` has `.title`, `.authors`, `.meta` with a
+   `.role` tag (First author / Joint first author / Co-author), optional `.talk`.
+5. `#research` — four themes as prose paragraphs, each with an `h3` and a `.meta` line.
+   In the first two themes the figure comes directly after the `h3`, before the prose.
+   The Robertsonian theme holds `figure.schematic`: an inline `<svg class="rt">`
    (viewBox 2560x810) redrawn from the user's schematic.png, colored only by tokens
    (`--fig-blue`, `--fig-grey`, `--fig-dark`, `--loss`). It scrolls horizontally below 40rem.
    The OMKar theme holds `figure.paperfig`: two transparent PNGs (`omkar-fig1-light.png`,
    `omkar-fig1-dark.png`), swapped by the same three theme selectors the tokens use.
-5. `#publications` — `ul.pubs`; each `li` has `.title`, `.authors`, `.meta` with a
-   `.role` tag (First author / Joint first author / Co-author), optional `.talk`.
+   The third theme (miR-25, Rana Lab) holds another `figure.schematic` with `<svg class="mir">`,
+   a two-row pathway diagram; it shares the `.schematic` CSS classes with the RT figure.
+   The fourth theme (Wu Lab wet-lab work) is prose only, written from the resume's Wu Lab bullets.
 6. `#experience` — three `ul.timeline` lists: Experience, Teaching and mentoring, Education.
 7. `footer` — contact links, location, "Last updated", theme toggle button.
 
@@ -71,7 +75,8 @@ Before pushing, check all four: light theme, dark theme (toggle in footer or OS 
   (between publications; the timeline date column).
 - **Sentence case everywhere.** No all-caps labels, no eyebrow labels, no "01/02/03"
   numbering, no arrows appended to links.
-- **Three visuals: the hero photo, the Robertsonian schematic, and OMKar Figure 1.** No further
+- **Four visuals: the hero photo, the Robertsonian schematic, OMKar Figure 1, and the miR-25
+  pathway.** No further
   images, no icons beyond the three profile links in `ul.social`, no animation. The schematic's "loss" color is
   the hat khaki from the photo, standing in for the red of the original figure. (The read pile-up SVG was removed on 2026-11-09; see below
   if it is wanted back.)
@@ -85,7 +90,10 @@ Before pushing, check all four: light theme, dark theme (toggle in footer or OS 
   Every number on the page (60+ TB, 25x, "up to three whole genomes per minute") was checked
   against it. The Robertsonian figures (1 in 800, 224 HPRC and 9 clinical samples, 100% recall,
   98% precision) and the OMKar figures (144 of 154 karyotypes, 94%, five newly explained cases)
-  were supplied directly by the user on 2026-11-09.
+  were supplied directly by the user on 2026-11-09. The miR-25 theme's content comes from the
+  paper's abstract and author-contribution statement (70,617 single-cell transcriptomes; Z.J.
+  among three authors who "performed computational and data analyses") plus the resume's Rana
+  Lab bullets; drafted by Claude on 2026-11-10, pending the user's review.
   Do not change a number, a claim, or an author list without the user confirming it.
 - Authorship tags must stay exact: Robertsonian paper = first author (manuscript in
   preparation, preprint expected Nov 2026; ASHG 2026 **lightning talk**, not "flash talk");
