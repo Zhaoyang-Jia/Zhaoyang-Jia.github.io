@@ -7,7 +7,7 @@ Single-file personal site. No build step, no dependencies beyond Google Fonts.
 | File          | Purpose                                                        |
 |---------------|----------------------------------------------------------------|
 | `index.html`  | The whole site: markup, styles, and a 20-line theme toggle.    |
-| `resume.pdf`  | Your compiled resume. The "CV" links point here. (Add it.)     |
+| `resume.pdf`  | Compiled resume from Overleaf. The "Resume" links point here.     |
 | `photo.jpg`   | Optional portrait. Uncomment the `<img class="portrait">` block in `index.html` to show it. |
 
 ## Deploy
@@ -17,7 +17,6 @@ Pushing to `main` redeploys automatically in about a minute.
 
 ## Still to do
 
-- Add `resume.pdf` at the repo root; until then the CV links 404.
 - Point the resume's `Personal Website` link at `https://zhaoyang-jia.github.io/`.
 
 ## Editing

@@ -13,7 +13,7 @@ Local working copy: `/Users/zhaoyangjia/Github_Repos/Personal_Website`.
 | Path          | Role                                                                 |
 |---------------|----------------------------------------------------------------------|
 | `index.html`  | The entire site: markup, CSS, inline SVG, and a ~20-line theme toggle. |
-| `resume.pdf`  | Compiled resume from the Overleaf project. Every "CV" link points here. |
+| `resume.pdf`  | Compiled resume from the Overleaf project. Every "Resume" link points here. |
 | `photo.jpg`   | Optional portrait (not present yet). See "Portrait" below.           |
 | `README.md`   | Deploy notes for humans.                                             |
 | `CLAUDE.md`   | This file.                                                           |
@@ -37,8 +37,8 @@ Before pushing, check all four: light theme, dark theme (toggle in footer or OS 
 
 ## Page structure (top to bottom, same order in the file)
 
-1. `header.top` — small nav: About, Research, Publications, Projects, CV.
-2. `section.hero` — name (h1), one-line role, `p.contact` (email, CV), then `ul.social`:
+1. `header.top` — small nav: About, Research, Publications, Projects, Resume.
+2. `section.hero` — name (h1), one-line role, `p.contact` (email, Resume), then `ul.social`:
    three inline-SVG icon links (Google Scholar, GitHub, LinkedIn). The icons are
    Simple Icons paths pasted inline; no icon font, no CDN.
 3. `#about` — "About me" h2, the three-sentence lede, then `figure.figure` containing the
@@ -93,7 +93,6 @@ Before pushing, check all four: light theme, dark theme (toggle in footer or OS 
 
 ## Open items (as of 2026-10-28)
 
-- `resume.pdf` must be present at the repo root or the CV links 404.
 - Portrait: optional. Drop `photo.jpg` (~400 px square) at the root and uncomment the
   `<img class="portrait">` block above the `h1`. CSS for it already exists.
 - The resume's `Personal Website` link should point at `https://zhaoyang-jia.github.io/`.
